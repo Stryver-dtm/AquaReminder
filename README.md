@@ -39,9 +39,3 @@ MainActivity.kt          -> Entry point, request izin notifikasi, setContent Com
 4. User tap tombol "Sudah minum (250ml)" di notifikasi → `QuickLogReceiver` menerima broadcast → langsung `INSERT` ke Room, tanpa membuka aplikasi.
 5. `DashboardViewModel` yang meng-observe Room lewat `Flow` otomatis ter-update, progress ring di dashboard langsung berubah saat app dibuka.
 
-## Yang masih perlu ditambahkan (belum termasuk skeleton ini)
-- Layar **Riwayat/Statistik** (grafik mingguan) — bisa pakai library seperti Vico atau MPAndroidChart.
-- Layar **Pengaturan** untuk mengubah target, ukuran gelas, interval, jam aktif — tinggal reuse `UserSettings` + panggil `ReminderScheduler.scheduleReminder()` ulang saat interval berubah.
-- Logika **streak** (hitung hari berturut-turut target tercapai) — query tambahan di `WaterDao` yang mengelompokkan per hari.
-- Ikon aplikasi & tema warna (`Theme.AquaReminder`) — saat ini masih placeholder ikon bawaan Android.
-- File project-level (`settings.gradle`, `build.gradle` root, `gradle.properties`) — otomatis dibuatkan Android Studio saat membuat project Compose baru; cukup salin folder `app/` ini ke dalamnya.
