@@ -71,16 +71,4 @@ Aplikasi menggunakan pola **MVVM (Model-View-ViewModel)**.
 - **Background Task** : WorkManager
 - **Notification** : Notification Helper & Broadcast Receiver
 
-## Repository
-
-https://github.com/Stryver-dtm/AquaReminder
-
-## Tim Pengembang
-
-- Rara
-- Desta Mufti Nusangga
-- Anggota Kelompok
-
----
-
 **AquaReminder** dikembangkan sebagai proyek pembelajaran Android menggunakan Kotlin dan Jetpack Compose untuk membantu pengguna membangun kebiasaan minum air secara teratur.
