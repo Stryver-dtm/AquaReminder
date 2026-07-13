@@ -1,41 +1,86 @@
-# AquaReminder — Android Kotlin
+# AquaReminder 💧
 
-Skeleton project untuk aplikasi pengingat & pelacak minum air putih.
+AquaReminder adalah aplikasi Android berbasis Kotlin yang membantu pengguna menjaga kebutuhan hidrasi harian dengan memberikan pengingat minum air secara berkala serta mencatat konsumsi air setiap hari.
 
-## Cara pakai
-1. Buka Android Studio → **Open** → pilih folder `AquaReminder` ini.
-2. Biarkan Gradle sync (Android Studio akan melengkapi file `settings.gradle`,
-   `build.gradle` (project-level), dan `gradle.properties` secara otomatis
-   lewat wizard "New Project" jika folder ini dijadikan project baru —
-   atau salin file-file itu dari template proyek Compose kosong).
-3. Jalankan di emulator/device dengan minSdk 24 (Android 7.0) ke atas.
+## Fitur
 
-## Struktur kode
+- 💧 Mencatat konsumsi air harian.
+- 🔔 Pengingat minum air menggunakan WorkManager.
+- ⚡ Quick Log langsung dari notifikasi tanpa membuka aplikasi.
+- 📊 Dashboard yang menampilkan progres konsumsi air harian.
+- 📜 Riwayat konsumsi air.
+- ⚙️ Pengaturan target harian, ukuran gelas, interval pengingat, dan jam aktif notifikasi.
+- 💾 Penyimpanan data menggunakan Room Database.
+- 🎨 Antarmuka modern menggunakan Jetpack Compose.
+
+## Teknologi
+
+- Kotlin
+- Jetpack Compose
+- Room Database
+- WorkManager
+- Material Design 3
+- MVVM Architecture
+
+## Struktur Project
 
 ```
-data/
-  WaterEntry.kt          -> Entity WaterEntry & UserSettings (Room)
-  WaterDao.kt            -> DAO query database
-  AppDatabase.kt         -> Setup Room database (singleton)
-  WaterRepository.kt     -> Jembatan data antara DAO <-> ViewModel
-
-ui/
-  DashboardViewModel.kt  -> State & logika bisnis dashboard
-  DashboardScreen.kt     -> UI Compose (progress ring, tombol log cepat)
-
-notification/
-  WaterReminderWorker.kt -> WorkManager job, jalan tiap interval, cek jam aktif
-  NotificationHelper.kt  -> Membuat & menampilkan notifikasi + action button
-  QuickLogReceiver.kt    -> Menangani tap "Sudah minum" tanpa buka app
-  ReminderScheduler.kt   -> Mendaftarkan/membatalkan periodic work
-
-MainActivity.kt          -> Entry point, request izin notifikasi, setContent Compose
+app/
+├── data/            # Entity, DAO, Database, Repository
+├── notification/    # WorkManager, Notification Helper, Scheduler
+├── ui/              # Screen, ViewModel, Navigation
+└── MainActivity.kt
 ```
 
-## Alur reminder (inti fitur)
-1. `MainActivity` memanggil `ReminderScheduler.scheduleReminder()` saat app dibuka.
-2. WorkManager menjalankan `WaterReminderWorker` tiap N menit (sesuai `UserSettings`).
-3. Worker cek apakah sekarang dalam jam aktif → jika ya, tampilkan notifikasi lewat `NotificationHelper`.
-4. User tap tombol "Sudah minum (250ml)" di notifikasi → `QuickLogReceiver` menerima broadcast → langsung `INSERT` ke Room, tanpa membuka aplikasi.
-5. `DashboardViewModel` yang meng-observe Room lewat `Flow` otomatis ter-update, progress ring di dashboard langsung berubah saat app dibuka.
+## Cara Menjalankan
 
+### Persyaratan
+- Android Studio Hedgehog atau versi yang lebih baru.
+- Android SDK minimum API 24 (Android 7.0).
+- Gradle sesuai konfigurasi project.
+
+### Langkah
+
+1. Clone repository.
+
+```bash
+git clone https://github.com/Stryver-dtm/AquaReminder.git
+```
+
+2. Buka project menggunakan Android Studio.
+
+3. Tunggu proses **Gradle Sync** selesai.
+
+4. Jalankan aplikasi pada emulator atau perangkat Android.
+
+## Cara Kerja Aplikasi
+
+1. Pengguna menentukan target konsumsi air harian.
+2. Aplikasi menjadwalkan pengingat menggunakan WorkManager.
+3. Notifikasi akan muncul sesuai interval yang telah ditentukan.
+4. Pengguna dapat langsung mencatat konsumsi air melalui tombol pada notifikasi ataupun melalui dashboard aplikasi.
+5. Data konsumsi disimpan menggunakan Room Database dan ditampilkan secara otomatis pada dashboard serta halaman riwayat.
+
+## Arsitektur
+
+Aplikasi menggunakan pola **MVVM (Model-View-ViewModel)**.
+
+- **Model** : Room Database (Entity, DAO, Repository)
+- **View** : Jetpack Compose
+- **ViewModel** : Mengelola state dan logika bisnis
+- **Background Task** : WorkManager
+- **Notification** : Notification Helper & Broadcast Receiver
+
+## Repository
+
+https://github.com/Stryver-dtm/AquaReminder
+
+## Tim Pengembang
+
+- Rara
+- Desta Mufti Nusangga
+- Anggota Kelompok
+
+---
+
+**AquaReminder** dikembangkan sebagai proyek pembelajaran Android menggunakan Kotlin dan Jetpack Compose untuk membantu pengguna membangun kebiasaan minum air secara teratur.
